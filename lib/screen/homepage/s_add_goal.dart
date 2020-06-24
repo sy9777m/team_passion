@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:team_passion/widget/w_add_goal_screen.dart';
 
 class AddGoalPage extends StatefulWidget {
@@ -43,24 +40,22 @@ class _AddGoalPageState extends State<AddGoalPage> {
 //                        icon: Icon(FontAwesomeIcons.plus),
 //                        onTap: () {},
 //                      ),
-                      Divider(),
+
 //                      CardWidget(
 //                        title: Text('알람 설정'),
 //                        icon: Icon(FontAwesomeIcons.clock),
 //                      ),
-                      CardWidget(
-                        title: Text('마감일 설정'),
-                        icon: Icon(FontAwesomeIcons.calendarAlt),
-                      ),
+
 //                      CardWidget(
 //                        title: Text('반복 설정'),
 //                        icon: Icon(FontAwesomeIcons.redo),
 //                      ),
-                      Divider(),
+
                       TextInputArea(
                         labelText: '메모',
                         hintText: '메모',
                       ),
+                      PickDeadlineButton(),
                     ],
                   ),
                 ),

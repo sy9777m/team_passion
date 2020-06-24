@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FireBaseModule extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -32,16 +32,27 @@ class FireBaseModule extends ChangeNotifier {
     _currentUser = await _auth.currentUser();
     assert(_user.uid == _currentUser.uid);
 
-    await _fireStore.collection('users').document(_user.uid).setData({
-      'id': _user.uid,
-      'name': _user.displayName,
-      'email': _user.email,
-      'imageUrl': _user.photoUrl,
-    });
-  }
+    QuerySnapshot _documentQuery =
+        await _fireStore.collection('users').getDocuments();
 
-  void signOutGoogle() async {
-    await _googleSignIn.signOut();
+    List<String> _documentIDList = [];
+    _documentQuery.documents.forEach((element) {
+      _documentIDList.add(element.documentID);
+    });
+
+    if (!_documentIDList.contains(_user.uid)) {
+      await _fireStore.collection('users').document(_user.uid).setData({
+        'id': _user.uid,
+        'name': _user.displayName,
+        'email': _user.email,
+        'imageUrl': _user.photoUrl,
+      });
+    } else {
+      await _fireStore
+          .collection('users')
+          .document(_user.uid)
+          .setData({'lastLogin': DateTime.now()}, merge: true);
+    }
   }
 
   Future<void> getUserData() async {
@@ -50,13 +61,34 @@ class FireBaseModule extends ChangeNotifier {
     _userDocument = _userDocumentSnapshot.data;
   }
 
+  Stream<DocumentSnapshot> getUserSnapshot() {
+    return _fireStore
+        .collection('users')
+        .document(_currentUser.uid)
+        .snapshots();
+  }
+
+  void signOutGoogle() async {
+    await _googleSignIn.signOut();
+  }
+
   String get getUserName => _userDocument['name'];
   String get getUserEmail => _userDocument['email'];
   String get getUserImageUrl => _userDocument['imageUrl'];
 
 //  goal data
 
-  Future<void> createGoal(String title, String memo, DateTime deadLine) async {
+  DateTime _deadline = DateTime.now();
+
+  void setDeadline(DateTime deadline) {
+    _deadline = deadline;
+  }
+
+  DateTime get getDeadline {
+    return _deadline;
+  }
+
+  Future<void> createGoal(String title, String memo) async {
     await _fireStore
         .collection('goals')
         .document(_currentUser.uid)
@@ -65,7 +97,7 @@ class FireBaseModule extends ChangeNotifier {
         .setData({
       'title': title,
       'memo': memo,
-      'deadLine': deadLine,
+      'deadLine': _deadline,
     });
   }
 
@@ -77,6 +109,14 @@ class FireBaseModule extends ChangeNotifier {
   }
 
   Future<void> loadGoals() async {}
+
+  Stream<QuerySnapshot> loadGoalsSnapshot() {
+    return _fireStore
+        .collection('goals')
+        .document(_currentUser.uid)
+        .collection('goals')
+        .snapshots();
+  }
 
   Future<void> deleteGoal() async {
     await _fireStore.collection('goals').document(_currentUser.uid).setData({});

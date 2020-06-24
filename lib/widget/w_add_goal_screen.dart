@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:team_passion/module/m_firebase.dart';
 
 class TextInputContainer extends StatelessWidget {
   const TextInputContainer({
@@ -13,6 +16,7 @@ class TextInputContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: TextField(
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
@@ -43,6 +47,7 @@ class TextInputArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: TextField(
         keyboardType: TextInputType.multiline,
         maxLines: 3,
@@ -93,5 +98,40 @@ class CardWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class PickDeadlineButton extends StatefulWidget {
+  const PickDeadlineButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _PickDeadlineButtonState createState() => _PickDeadlineButtonState();
+}
+
+class _PickDeadlineButtonState extends State<PickDeadlineButton> {
+  bool setDeadline = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<FireBaseModule>(builder: (context, firebaseModule, child) {
+      return CardWidget(
+        title: Text(
+            setDeadline ? firebaseModule.getDeadline.toString() : '마감일 설정'),
+        icon: Icon(FontAwesomeIcons.calendarAlt),
+        onTap: () async {
+          DateTime _deadline = await showDatePicker(
+              context: context,
+              initialDate: firebaseModule.getDeadline,
+              firstDate: firebaseModule.getDeadline,
+              lastDate: DateTime(2100));
+          firebaseModule.setDeadline(_deadline);
+          setState(() {
+            setDeadline = true;
+          });
+        },
+      );
+    });
   }
 }

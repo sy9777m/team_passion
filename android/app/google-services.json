@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1060312062141",
+    "firebase_url": "https://team-passion-dc572.firebaseio.com",
+    "project_id": "team-passion-dc572",
+    "storage_bucket": "team-passion-dc572.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060312062141:android:d29c2be89587eb23573fd4",
+        "android_client_info": {
+          "package_name": "siyun_min.team_passion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060312062141-rn4mk6brplqk77jvnf5rjn2lk08p2jqg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "siyun_min.team_passion",
+            "certificate_hash": "bbbfc23762581ce6ff564a7021d1d7260a428ca6"
+          }
+        },
+        {
+          "client_id": "1060312062141-6vb3uke99p47jok1taad7nve6e1g1j9g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdvz9QIX-qUePr8PvGe5UJ3da61tIrQPs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060312062141-6vb3uke99p47jok1taad7nve6e1g1j9g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
