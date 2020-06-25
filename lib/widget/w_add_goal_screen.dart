@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -7,35 +8,50 @@ class TextInputContainer extends StatelessWidget {
   const TextInputContainer({
     this.hintText,
     this.labelText,
+    this.onChange,
+    this.onSubmitted,
     Key key,
   }) : super(key: key);
 
   final String labelText;
   final String hintText;
+  final Function onChange;
+  final Function onSubmitted;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: TextField(
-        keyboardType: TextInputType.text,
-        decoration: InputDecoration(
-          labelStyle: TextStyle(
-            fontSize: 15.0,
+    return Consumer<FireBaseModule>(builder: (context, firebaseModule, child) {
+      return Container(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: TextField(
+          onChanged: onChange,
+          onSubmitted: onSubmitted,
+          keyboardType: TextInputType.text,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                const Radius.circular(5.0),
+              ),
+            ),
+            labelStyle: TextStyle(
+              fontSize: 15.0,
+            ),
+            hintStyle: TextStyle(
+              fontSize: 15.0,
+            ),
+            labelText: labelText,
+            hintText: hintText,
           ),
-          hintStyle: TextStyle(
-            fontSize: 15.0,
-          ),
-          labelText: labelText,
-          hintText: hintText,
         ),
-      ),
-    );
+      );
+    });
   }
 }
 
 class TextInputArea extends StatelessWidget {
   const TextInputArea({
+    this.onSubmitted,
+    this.onChange,
     this.hintText,
     this.labelText,
     Key key,
@@ -43,12 +59,16 @@ class TextInputArea extends StatelessWidget {
 
   final String labelText;
   final String hintText;
+  final Function onChange;
+  final Function onSubmitted;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: TextField(
+        onChanged: onChange,
+        onSubmitted: onSubmitted,
         keyboardType: TextInputType.multiline,
         maxLines: 3,
         decoration: InputDecoration(
@@ -131,6 +151,54 @@ class _PickDeadlineButtonState extends State<PickDeadlineButton> {
             setDeadline = true;
           });
         },
+      );
+    });
+  }
+}
+
+class CreateGoalButton extends StatelessWidget {
+  const CreateGoalButton({
+    this.formKey,
+    Key key,
+  }) : super(key: key);
+
+  final GlobalKey<FormState> formKey;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<FireBaseModule>(builder: (context, firebaseModule, child) {
+      return Container(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        width: double.maxFinite,
+        child: RaisedButton(
+          onPressed: () async {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return CupertinoAlertDialog(
+                  title: Text('Loading'),
+                  content: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              },
+            );
+            formKey.currentState.save();
+            await firebaseModule.createGoal();
+            Navigator.pop(context);
+            Navigator.pop(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              '목표 생성',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
       );
     });
   }

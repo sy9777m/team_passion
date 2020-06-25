@@ -78,7 +78,17 @@ class FireBaseModule extends ChangeNotifier {
 
 //  goal data
 
+  String _title = '';
+  String _memo = '';
   DateTime _deadline = DateTime.now();
+
+  void setTitle(String title) {
+    _title = title;
+  }
+
+  void setMemo(String memo) {
+    _memo = memo;
+  }
 
   void setDeadline(DateTime deadline) {
     _deadline = deadline;
@@ -88,15 +98,15 @@ class FireBaseModule extends ChangeNotifier {
     return _deadline;
   }
 
-  Future<void> createGoal(String title, String memo) async {
+  Future<void> createGoal() async {
     await _fireStore
         .collection('goals')
         .document(_currentUser.uid)
         .collection('goals')
         .document()
         .setData({
-      'title': title,
-      'memo': memo,
+      'title': _title,
+      'memo': _memo,
       'deadLine': _deadline,
     });
   }
