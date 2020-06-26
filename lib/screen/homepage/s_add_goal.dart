@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:team_passion/module/m_firebase.dart';
 import 'package:team_passion/widget/w_add_goal_screen.dart';
 
 class AddGoalPage extends StatefulWidget {
@@ -34,13 +36,18 @@ class _AddGoalPageState extends State<AddGoalPage> {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
 //                    TODO: make form
-                    child: Form(
-                      child: Column(
-                        children: <Widget>[
-                          TextInputContainer(
-                            labelText: '타이틀',
-                            hintText: '타이틀',
-                          ),
+                    child: Consumer<FireBaseModule>(
+                      builder: (context, firebaseModule, child) {
+                        return Form(
+                          child: Column(
+                            children: <Widget>[
+                              TextInputContainer(
+                                onChange: (v) {
+                                  firebaseModule.setTitle(v);
+                                },
+                                labelText: '타이틀',
+                                hintText: '타이틀',
+                              ),
 //                      CardWidget(
 //                        title: Text('다음 단계 추가하기'),
 //                        icon: Icon(FontAwesomeIcons.plus),
@@ -57,14 +64,36 @@ class _AddGoalPageState extends State<AddGoalPage> {
 //                        icon: Icon(FontAwesomeIcons.redo),
 //                      ),
 
-                          TextInputArea(
-                            labelText: '메모',
-                            hintText: '메모',
+                              TextInputArea(
+                                onChange: (v) {
+                                  firebaseModule.setMemo(v);
+                                },
+                                labelText: '메모',
+                                hintText: '메모',
+                              ),
+                              PickDeadlineButton(),
+                              CreateGoalButton(
+                                onPressed: () async {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return CupertinoAlertDialog(
+                                          title: Text('Loading'),
+                                          content: Center(
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                        );
+                                      });
+
+                                  await firebaseModule.createGoal();
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
                           ),
-                          PickDeadlineButton(),
-                          CreateGoalButton(),
-                        ],
-                      ),
+                        );
+                      },
                     ),
                   ),
                 ],

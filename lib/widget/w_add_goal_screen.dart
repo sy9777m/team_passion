@@ -158,11 +158,11 @@ class _PickDeadlineButtonState extends State<PickDeadlineButton> {
 
 class CreateGoalButton extends StatelessWidget {
   const CreateGoalButton({
-    this.formKey,
+    this.onPressed,
     Key key,
   }) : super(key: key);
 
-  final GlobalKey<FormState> formKey;
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -171,23 +171,7 @@ class CreateGoalButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10.0),
         width: double.maxFinite,
         child: RaisedButton(
-          onPressed: () async {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return CupertinoAlertDialog(
-                  title: Text('Loading'),
-                  content: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              },
-            );
-            formKey.currentState.save();
-            await firebaseModule.createGoal();
-            Navigator.pop(context);
-            Navigator.pop(context);
-          },
+          onPressed: onPressed,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
