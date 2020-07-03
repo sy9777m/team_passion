@@ -23,7 +23,7 @@ class LogInPage extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  'Passion',
+                  'Team Passion',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 50.0,
