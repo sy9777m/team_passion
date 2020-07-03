@@ -16,9 +16,9 @@ class _AddGoalPageState extends State<AddGoalPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Center(
             child: SingleChildScrollView(
@@ -39,6 +39,7 @@ class _AddGoalPageState extends State<AddGoalPage> {
                     child: Consumer<FireBaseModule>(
                       builder: (context, firebaseModule, child) {
                         return Form(
+                          key: _formKey,
                           child: Column(
                             children: <Widget>[
                               TextInputContainer(
@@ -63,24 +64,28 @@ class _AddGoalPageState extends State<AddGoalPage> {
 //                        title: Text('반복 설정'),
 //                        icon: Icon(FontAwesomeIcons.redo),
 //                      ),
-
-                              TextInputArea(
-                                onChange: (v) {
-                                  firebaseModule.setMemo(v);
-                                },
-                                labelText: '메모',
-                                hintText: '메모',
-                              ),
+//
+//                              TextInputArea(
+//                                onChange: (v) {
+//                                  firebaseModule.setMemo(v);
+//                                },
+//                                labelText: '메모',
+//                                hintText: '메모',
+//                              ),
                               PickDeadlineButton(),
                               CreateGoalButton(
                                 onPressed: () async {
                                   showDialog(
                                       context: context,
                                       builder: (context) {
-                                        return CupertinoAlertDialog(
-                                          title: Text('Loading'),
-                                          content: Center(
-                                            child: CircularProgressIndicator(),
+                                        return WillPopScope(
+                                          onWillPop: () async => false,
+                                          child: CupertinoAlertDialog(
+                                            title: Text('Loading'),
+                                            content: Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            ),
                                           ),
                                         );
                                       });

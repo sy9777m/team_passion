@@ -40,36 +40,35 @@ class _HomeState extends State<Home> {
             if (!snapshot.hasData) {
               return Center(child: CircularProgressIndicator());
             } else {
-              return SafeArea(
-                child: Scaffold(
-                  key: _scaffoldKey,
-                  body: Center(
+              return Scaffold(
+                key: _scaffoldKey,
+                body: SafeArea(
+                  child: Center(
                     child: _widgetOptions.elementAt(_selectedIndex),
                   ),
-                  floatingActionButton: FloatingActionButton(
-                    child: Icon(FontAwesomeIcons.plus),
-                    onPressed: () =>
-                        Navigator.pushNamed(context, AddGoalPage.id),
-                  ),
-                  bottomNavigationBar: BottomNavigationBar(
-                    elevation: 10.0,
-                    items: [
-                      BottomNavigationBarItem(
-                        icon: Icon(FontAwesomeIcons.home),
-                        title: Container(),
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(FontAwesomeIcons.users),
-                        title: Container(),
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(FontAwesomeIcons.user),
-                        title: Container(),
-                      ),
-                    ],
-                    currentIndex: _selectedIndex,
-                    onTap: _onItemTapped,
-                  ),
+                ),
+                floatingActionButton: FloatingActionButton(
+                  child: Icon(FontAwesomeIcons.plus),
+                  onPressed: () => Navigator.pushNamed(context, AddGoalPage.id),
+                ),
+                bottomNavigationBar: BottomNavigationBar(
+                  elevation: 10.0,
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: Icon(FontAwesomeIcons.home),
+                      title: Container(),
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(FontAwesomeIcons.users),
+                      title: Container(),
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(FontAwesomeIcons.user),
+                      title: Container(),
+                    ),
+                  ],
+                  currentIndex: _selectedIndex,
+                  onTap: _onItemTapped,
                 ),
               );
             }

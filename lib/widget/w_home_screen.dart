@@ -14,31 +14,31 @@ class MyGoalCard extends StatelessWidget {
         elevation: 5.0,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text(
-                    'Goal Title',
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+          child: ListTile(
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Goal Title',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Text(
-                    'Deadline',
-                    style: TextStyle(
-                      fontSize: 15.0,
-                    ),
+                ),
+                Text(
+                  'Deadline',
+                  style: TextStyle(
+                    fontSize: 15.0,
                   ),
-                ],
+                ),
+              ],
+            ),
+            trailing: IconButton(
+              icon: Icon(
+                FontAwesomeIcons.check,
               ),
-              IconButton(
-                icon: Icon(FontAwesomeIcons.check),
-                onPressed: () {},
-              ),
-            ],
+              onPressed: () {},
+            ),
           ),
         ),
       ),

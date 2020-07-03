@@ -125,7 +125,7 @@ class MyCard extends StatelessWidget {
                             width: double.maxFinite,
                           ),
                           Card(
-                            elevation: 10.0,
+                            elevation: 5.0,
                             shape: CircleBorder(),
                             child: CircleAvatar(
                               backgroundImage:
@@ -140,12 +140,12 @@ class MyCard extends StatelessWidget {
                               fontSize: 40.0,
                             ),
                           ),
-//                          Text(
-//                            'Day since start',
-//                            style: TextStyle(
-//                              fontSize: 25.0,
-//                            ),
-//                          ),
+                          Text(
+                            'Day since start',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                            ),
+                          ),
                         ],
                       );
                     } else {

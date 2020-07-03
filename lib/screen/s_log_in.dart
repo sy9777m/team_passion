@@ -10,41 +10,54 @@ class LogInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.indigoAccent,
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 20.0,
-              ),
-              child: Center(
-                child: Text(
-                  'Team Passion',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 50.0,
-                    fontWeight: FontWeight.w900,
-                  ),
+    return Scaffold(
+      backgroundColor: Colors.indigoAccent,
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+              bottom: 20.0,
+            ),
+            child: Center(
+              child: Text(
+                'Team Passion',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 50.0,
+                  fontWeight: FontWeight.w900,
                 ),
               ),
             ),
-            Center(
-              child: Consumer<FireBaseModule>(
-                  builder: (context, firebaseModule, child) {
-                return GoogleSignInButton(
-                  onPressed: () async {
-                    await firebaseModule.signInWithGoogle().whenComplete(
-                        () => Navigator.pushReplacementNamed(context, Home.id));
-                  },
-                );
-              }),
-            ),
-          ],
-        ),
+          ),
+          Center(
+            child: Consumer<FireBaseModule>(
+                builder: (context, firebaseModule, child) {
+              return GoogleSignInButton(
+                onPressed: () async {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return WillPopScope(
+                        onWillPop: () async => false,
+                        child: CupertinoAlertDialog(
+                          title: Text('Loading'),
+                          content: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                  await firebaseModule.signInWithGoogle();
+                  Navigator.pop(context);
+                  Navigator.pushReplacementNamed(context, Home.id);
+                },
+              );
+            }),
+          ),
+        ],
       ),
     );
   }
