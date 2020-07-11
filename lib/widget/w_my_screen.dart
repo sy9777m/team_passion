@@ -66,7 +66,7 @@ class LogoutButton extends StatelessWidget {
       builder: (context, firebaseModule, child) {
         return RaisedButton(
           elevation: 7.0,
-          onPressed: () {
+          onPressed: () async {
             firebaseModule.signOutGoogle();
             Navigator.pushReplacementNamed(context, LogInPage.id);
           },
