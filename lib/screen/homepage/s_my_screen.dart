@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:team_passion/widget/w_my_screen.dart';
+import 'package:team_passion/widget/w_my.dart';
 
 class MyScreen extends StatelessWidget {
   @override

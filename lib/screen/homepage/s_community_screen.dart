@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:team_passion/widget/w_community_screen.dart';
+import 'package:team_passion/widget/w_community.dart';
 
 class CommunityScreen extends StatelessWidget {
   @override

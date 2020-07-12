@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:team_passion/module/m_firebase.dart';
-import 'package:team_passion/screen/homepage/s_add_goal.dart';
+import 'package:team_passion/screen/homepage/s_add_goal_screen.dart';
 import 'package:team_passion/screen/s_home.dart';
 import 'package:team_passion/screen/s_log_in.dart';
 

@@ -14,7 +14,7 @@ class GoalTrackingDot extends StatelessWidget {
     return SizedBox(
       child: Container(
         padding: const EdgeInsets.all(5.0),
-        color: Colors.green,
+        color: Colors.lightGreenAccent,
       ),
       width: 15.0,
       height: 15.0,
@@ -35,19 +35,6 @@ class GoalTrackTable extends StatelessWidget {
         crossAxisSpacing: 2.0,
         mainAxisSpacing: 2.0,
         children: [
-          GoalTrackingDot(),
-          GoalTrackingDot(),
-          GoalTrackingDot(),
-          GoalTrackingDot(),
-          GoalTrackingDot(),
-          GoalTrackingDot(),
-          GoalTrackingDot(),
-          GoalTrackingDot(),
-          GoalTrackingDot(),
-          GoalTrackingDot(),
-          GoalTrackingDot(),
-          GoalTrackingDot(),
-          GoalTrackingDot(),
           GoalTrackingDot(),
         ],
       ),

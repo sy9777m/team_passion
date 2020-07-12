@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:team_passion/module/m_firebase.dart';
-import 'package:team_passion/widget/w_add_goal_screen.dart';
+import 'package:team_passion/widget/w_add_goal.dart';
 
 class AddGoalPage extends StatefulWidget {
   static String id = './add_goal_page';
@@ -12,7 +12,7 @@ class AddGoalPage extends StatefulWidget {
 }
 
 class _AddGoalPageState extends State<AddGoalPage> {
-  final GlobalKey _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,6 @@ class _AddGoalPageState extends State<AddGoalPage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-//                    TODO: make form
                     child: Consumer<FireBaseModule>(
                       builder: (context, firebaseModule, child) {
                         return Form(
@@ -75,24 +74,26 @@ class _AddGoalPageState extends State<AddGoalPage> {
                               PickDeadlineButton(),
                               CreateGoalButton(
                                 onPressed: () async {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return WillPopScope(
-                                          onWillPop: () async => false,
-                                          child: CupertinoAlertDialog(
-                                            title: Text('Loading'),
-                                            content: Center(
-                                              child:
-                                                  CircularProgressIndicator(),
+                                  if (_formKey.currentState.validate()) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return WillPopScope(
+                                            onWillPop: () async => false,
+                                            child: CupertinoAlertDialog(
+                                              title: Text('목표를 생성 중입니다.'),
+                                              content: Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      });
+                                          );
+                                        });
 
-                                  await firebaseModule.createGoal();
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
+                                    await firebaseModule.createGoal();
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                  }
                                 },
                               ),
                             ],

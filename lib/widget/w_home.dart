@@ -3,8 +3,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyGoalCard extends StatelessWidget {
   const MyGoalCard({
+    @required this.title,
+    @required this.deadLine,
     Key key,
   }) : super(key: key);
+
+  final String title;
+  final String deadLine;
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +24,14 @@ class MyGoalCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Goal Title',
+                  title,
                   style: TextStyle(
                     fontSize: 25.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  'Deadline',
+                  deadLine,
                   style: TextStyle(
                     fontSize: 15.0,
                   ),

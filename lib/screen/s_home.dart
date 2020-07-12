@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:team_passion/module/m_firebase.dart';
-import 'package:team_passion/screen/homepage/s_add_goal.dart';
+import 'package:team_passion/screen/homepage/s_add_goal_screen.dart';
 import 'package:team_passion/screen/homepage/s_community_screen.dart';
 import 'package:team_passion/screen/homepage/s_home_screen.dart';
 import 'package:team_passion/screen/homepage/s_my_screen.dart';

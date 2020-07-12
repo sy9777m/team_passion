@@ -99,12 +99,14 @@ class FireBaseModule extends ChangeNotifier {
   }
 
   Future<void> createGoal() async {
-    await _fireStore
+    DocumentReference _goalReference = _fireStore
         .collection('goals')
         .document(_currentUser.uid)
         .collection('goals')
-        .document()
-        .setData({
+        .document();
+
+    await _goalReference.setData({
+      'goalId': _goalReference.documentID,
       'title': _title,
       'memo': _memo,
       'deadLine': _deadline,
