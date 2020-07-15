@@ -110,17 +110,10 @@ class FireBaseModule extends ChangeNotifier {
       'title': _title,
       'memo': _memo,
       'deadLine': _deadline,
+      'isDone': false,
+      'inTime': true,
     });
   }
-
-  Future<void> editGoal(String fieldKey, String fieldValue) async {
-    await _fireStore
-        .collection('goals')
-        .document(_currentUser.uid)
-        .updateData({fieldKey: fieldValue});
-  }
-
-  Future<void> loadGoals() async {}
 
   Stream<QuerySnapshot> loadGoalsSnapshot() {
     return _fireStore
@@ -130,7 +123,34 @@ class FireBaseModule extends ChangeNotifier {
         .snapshots();
   }
 
-  Future<void> deleteGoal() async {
-    await _fireStore.collection('goals').document(_currentUser.uid).setData({});
+  Future<void> deleteGoal(String goalId) async {
+    await _fireStore
+        .collection('goals')
+        .document(_currentUser.uid)
+        .collection('goals')
+        .document(goalId)
+        .delete();
+  }
+
+  Future<void> doneGoal(String goalId) async {
+    await _fireStore
+        .collection('goals')
+        .document(_currentUser.uid)
+        .collection('goals')
+        .document(goalId)
+        .setData({
+      'isDone': true,
+    }, merge: true);
+  }
+
+  Future<void> cancelDone(String goalId) async {
+    await _fireStore
+        .collection('goals')
+        .document(_currentUser.uid)
+        .collection('goals')
+        .document(goalId)
+        .setData({
+      'isDone': false,
+    }, merge: true);
   }
 }

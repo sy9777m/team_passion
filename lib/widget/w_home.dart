@@ -1,21 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyGoalCard extends StatelessWidget {
   const MyGoalCard({
     @required this.title,
     @required this.deadLine,
+    this.color,
+    this.onPressed,
+    @required this.icon,
+    this.onDismissed,
     Key key,
   }) : super(key: key);
 
   final String title;
   final String deadLine;
+  final Function onPressed;
+  final Color color;
+  final Icon icon;
+  final Function onDismissed;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
+    return Dismissible(
+      background: Container(
+        color: Colors.red,
+      ),
+      onDismissed: onDismissed,
+      key: key,
       child: Card(
+        color: color,
         elevation: 5.0,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
@@ -39,10 +51,8 @@ class MyGoalCard extends StatelessWidget {
               ],
             ),
             trailing: IconButton(
-              icon: Icon(
-                FontAwesomeIcons.check,
-              ),
-              onPressed: () {},
+              icon: icon,
+              onPressed: onPressed,
             ),
           ),
         ),
