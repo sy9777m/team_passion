@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:team_passion/module/m_firebase.dart';
 
@@ -137,20 +138,23 @@ class PickDeadlineButton extends StatefulWidget {
 
 class _PickDeadlineButtonState extends State<PickDeadlineButton> {
   bool setDeadline = false;
+  DateTime _deadline = DateTime.now();
+
+  final DateFormat _dateFormat = DateFormat.yMMMd();
 
   @override
   Widget build(BuildContext context) {
     return Consumer<FireBaseModule>(builder: (context, firebaseModule, child) {
       return CardWidget(
-        title: Text(
-            setDeadline ? firebaseModule.getDeadline.toString() : '마감일 설정'),
+        title: Text(setDeadline ? _dateFormat.format(_deadline) : '마감일 설정'),
         icon: Icon(FontAwesomeIcons.calendarAlt),
         onTap: () async {
-          DateTime _deadline = await showDatePicker(
+          _deadline = await showDatePicker(
               context: context,
-              initialDate: firebaseModule.getDeadline,
-              firstDate: firebaseModule.getDeadline,
+              initialDate: DateTime.now(),
+              firstDate: DateTime.now(),
               lastDate: DateTime(2100));
+
           firebaseModule.setDeadline(_deadline);
           setState(() {
             setDeadline = true;

@@ -79,23 +79,14 @@ class FireBaseModule extends ChangeNotifier {
 //  goal data
 
   String _title = '';
-  String _memo = '';
   DateTime _deadline = DateTime.now();
 
   void setTitle(String title) {
     _title = title;
   }
 
-  void setMemo(String memo) {
-    _memo = memo;
-  }
-
   void setDeadline(DateTime deadline) {
     _deadline = deadline;
-  }
-
-  DateTime get getDeadline {
-    return _deadline;
   }
 
   Future<void> createGoal() async {
@@ -108,7 +99,6 @@ class FireBaseModule extends ChangeNotifier {
     await _goalReference.setData({
       'goalId': _goalReference.documentID,
       'title': _title,
-      'memo': _memo,
       'deadLine': _deadline,
       'isDone': false,
       'inTime': true,
