@@ -51,7 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           return MyGoalCard(
                             onDismissed: (d) async {
                               await firebaseModule.deleteGoal(_goalIdList[i]);
-
                               Scaffold.of(context).showSnackBar(SnackBar(
                                 content: Text(
                                     '${_goalDocumentList[i]['title']}을 삭제했습니다.'),
