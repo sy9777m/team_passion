@@ -21,6 +21,8 @@ dependencies:
   google_sign_in: ^4.5.1
   font_awesome_flutter: ^8.8.1
   intl: ^0.16.1
+  apple_sign_in: ^0.1.0
+  device_info: ^0.4.2+4
 
 dev_dependencies:
   flutter_test:

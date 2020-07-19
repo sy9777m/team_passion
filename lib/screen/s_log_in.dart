@@ -58,6 +58,25 @@ class LogInPage extends StatelessWidget {
                     },
                   ),
                   AppleSignInButton(
+                    onPressed: () async {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return WillPopScope(
+                            onWillPop: () async => false,
+                            child: CupertinoAlertDialog(
+                              title: Text('Loading'),
+                              content: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                      await firebaseModule.signInWithApple();
+                      Navigator.pop(context);
+                      Navigator.pushReplacementNamed(context, Home.id);
+                    },
                     style: AppleButtonStyle.black,
                   ),
                   FacebookSignInButton(),
