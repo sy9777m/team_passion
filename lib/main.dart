@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<FireBaseModule>(
-          create: (context) => FireBaseModule(),
-        )
+        ChangeNotifierProvider<FirebaseModule>(
+          create: (context) => FirebaseModule(),
+        ),
       ],
       child: MaterialApp(
         title: 'Team Passion',

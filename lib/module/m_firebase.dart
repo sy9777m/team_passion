@@ -3,14 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class FireBaseModule extends ChangeNotifier {
+class FirebaseModule extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final Firestore _fireStore = Firestore.instance;
 
-//  login, user data
   FirebaseUser _currentUser;
-  Map<String, dynamic> _userDocument;
 
   Future<void> signInWithGoogle() async {
     final GoogleSignInAccount _googleSignInAccount =
@@ -55,6 +53,12 @@ class FireBaseModule extends ChangeNotifier {
     }
   }
 
+  void signOutGoogle() async {
+    await _googleSignIn.signOut();
+  }
+
+  Map<String, dynamic> _userDocument;
+
   Future<void> getUserData() async {
     final DocumentSnapshot _userDocumentSnapshot =
         await _fireStore.collection('users').document(_currentUser.uid).get();
@@ -66,10 +70,6 @@ class FireBaseModule extends ChangeNotifier {
         .collection('users')
         .document(_currentUser.uid)
         .snapshots();
-  }
-
-  void signOutGoogle() async {
-    await _googleSignIn.signOut();
   }
 
   String get getUserName => _userDocument['name'];

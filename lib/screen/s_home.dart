@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FireBaseModule>(builder: (context, firebaseModule, child) {
+    return Consumer<FirebaseModule>(builder: (context, firebaseModule, child) {
       return StreamBuilder<DocumentSnapshot>(
           stream: firebaseModule.getUserSnapshot(),
           builder: (context, snapshot) {

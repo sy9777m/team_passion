@@ -35,7 +35,7 @@ class _AddGoalPageState extends State<AddGoalPage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Consumer<FireBaseModule>(
+                    child: Consumer<FirebaseModule>(
                       builder: (context, firebaseModule, child) {
                         return Form(
                           key: _formKey,

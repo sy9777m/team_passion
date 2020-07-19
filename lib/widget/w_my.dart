@@ -49,7 +49,7 @@ class LogoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FireBaseModule>(
+    return Consumer<FirebaseModule>(
       builder: (context, firebaseModule, child) {
         return RaisedButton(
           elevation: 7.0,
@@ -100,7 +100,7 @@ class MyCard extends StatelessWidget {
               ),
               onPressed: () {},
             ),
-            Consumer<FireBaseModule>(builder: (context, firebaseModule, child) {
+            Consumer<FirebaseModule>(builder: (context, firebaseModule, child) {
               return FutureBuilder<void>(
                   future: firebaseModule.getUserData(),
                   builder: (context, snapshot) {

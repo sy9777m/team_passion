@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisSize: MainAxisSize.max,
         children: [
           SingleChildScrollView(
-            child: Consumer<FireBaseModule>(
+            child: Consumer<FirebaseModule>(
               builder: (context, firebaseModule, child) {
                 return StreamBuilder<QuerySnapshot>(
                   stream: firebaseModule.loadGoalsSnapshot(),

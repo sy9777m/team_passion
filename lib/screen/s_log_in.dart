@@ -32,28 +32,42 @@ class LogInPage extends StatelessWidget {
             ),
           ),
           Center(
-            child: Consumer<FireBaseModule>(
+            child: Consumer<FirebaseModule>(
                 builder: (context, firebaseModule, child) {
-              return GoogleSignInButton(
-                onPressed: () async {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return WillPopScope(
-                        onWillPop: () async => false,
-                        child: CupertinoAlertDialog(
-                          title: Text('Loading'),
-                          content: Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        ),
+              return Column(
+                children: [
+                  GoogleSignInButton(
+                    onPressed: () async {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return WillPopScope(
+                            onWillPop: () async => false,
+                            child: CupertinoAlertDialog(
+                              title: Text('Loading'),
+                              content: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                          );
+                        },
                       );
+                      await firebaseModule.signInWithGoogle();
+                      Navigator.pop(context);
+                      Navigator.pushReplacementNamed(context, Home.id);
                     },
-                  );
-                  await firebaseModule.signInWithGoogle();
-                  Navigator.pop(context);
-                  Navigator.pushReplacementNamed(context, Home.id);
-                },
+                  ),
+                  AppleSignInButton(
+                    style: AppleButtonStyle.black,
+                  ),
+                  FacebookSignInButton(),
+                  MicrosoftSignInButton(
+                    darkMode: true,
+                  ),
+                  TwitterSignInButton(
+                    textStyle: TextStyle(color: Colors.white),
+                  ),
+                ],
               );
             }),
           ),

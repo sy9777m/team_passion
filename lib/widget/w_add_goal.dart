@@ -21,7 +21,7 @@ class TextInputContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FireBaseModule>(builder: (context, firebaseModule, child) {
+    return Consumer<FirebaseModule>(builder: (context, firebaseModule, child) {
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: TextFormField(
@@ -144,7 +144,7 @@ class _PickDeadlineButtonState extends State<PickDeadlineButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FireBaseModule>(builder: (context, firebaseModule, child) {
+    return Consumer<FirebaseModule>(builder: (context, firebaseModule, child) {
       return CardWidget(
         title: Text(setDeadline ? _dateFormat.format(_deadline) : '마감일 설정'),
         icon: Icon(FontAwesomeIcons.calendarAlt),
@@ -175,7 +175,7 @@ class CreateGoalButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FireBaseModule>(builder: (context, firebaseModule, child) {
+    return Consumer<FirebaseModule>(builder: (context, firebaseModule, child) {
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
         width: double.maxFinite,
