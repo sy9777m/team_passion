@@ -52,7 +52,7 @@ class GoogleSignInModule {
     }
   }
 
-  void signOutGoogle() async {
+  Future<void> signOutGoogle() async {
     await _googleSignIn.signOut();
   }
 }

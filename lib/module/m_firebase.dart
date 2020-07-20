@@ -14,6 +14,7 @@ class FirebaseModule extends ChangeNotifier
   FirebaseUser _currentUser;
 
 //  Apple sign in
+  final GoogleSignInModule _googleSignInModule = GoogleSignInModule();
   final AppleSignInModule _appleSignInModule = AppleSignInModule();
 
   Future<void> signInWithApple() async {
@@ -22,51 +23,17 @@ class FirebaseModule extends ChangeNotifier
 
 //  Google Sign in
   Future<void> signInWithGoogle() async {
-    final GoogleSignInAccount _googleSignInAccount =
-        await _googleSignIn.signIn();
-    final GoogleSignInAuthentication _googleSignInAuthentication =
-        await _googleSignInAccount.authentication;
-
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: _googleSignInAuthentication.accessToken,
-      idToken: _googleSignInAuthentication.idToken,
-    );
-
-    final AuthResult _authResult = await _auth.signInWithCredential(credential);
-    final FirebaseUser _user = _authResult.user;
-
-    assert(!_user.isAnonymous);
-    assert(await _user.getIdToken() != null);
+    await _googleSignInModule.signInWithGoogle();
 
     _currentUser = await _auth.currentUser();
-    assert(_user.uid == _currentUser.uid);
-
-    QuerySnapshot _documentQuery =
-        await _fireStore.collection('users').getDocuments();
-
-    List<String> _documentIDList = [];
-    _documentQuery.documents.forEach((element) {
-      _documentIDList.add(element.documentID);
-    });
-
-    if (!_documentIDList.contains(_user.uid)) {
-      await _fireStore.collection('users').document(_user.uid).setData({
-        'id': _user.uid,
-        'name': _user.displayName,
-        'email': _user.email,
-        'imageUrl': _user.photoUrl,
-      });
-    } else {
-      await _fireStore
-          .collection('users')
-          .document(_user.uid)
-          .setData({'lastLogin': DateTime.now()}, merge: true);
-    }
   }
 
-  void signOutGoogle() async {
-    await _googleSignIn.signOut();
+  Future<void> signOutGoogle() async {
+    await _googleSignInModule.signOutGoogle();
   }
+
+// Facebook Sign in
+  Future<void> signInWithFacebook() async {}
 
   Map<String, dynamic> _userDocument;
 
