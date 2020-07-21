@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:team_passion/module/sign_in/m_apple.dart';
 import 'package:team_passion/module/sign_in/m_google.dart';
 
 class FirebaseModule extends ChangeNotifier
     with GoogleSignInModule, AppleSignInModule {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
   final Firestore _fireStore = Firestore.instance;
 
   FirebaseUser _currentUser;
