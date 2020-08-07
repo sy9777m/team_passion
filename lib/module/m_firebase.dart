@@ -17,6 +17,8 @@ class FirebaseModule extends ChangeNotifier
 
   Future<void> signInWithApple() async {
     await _appleSignInModule.signInWithApple();
+
+    _currentUser = await _auth.currentUser();
   }
 
 //  Google Sign in
