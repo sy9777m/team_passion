@@ -51,8 +51,4 @@ class GoogleSignInModule {
           .setData({'lastLogin': DateTime.now()}, merge: true);
     }
   }
-
-  Future<void> signOutGoogle() async {
-    await _googleSignIn.signOut();
-  }
 }

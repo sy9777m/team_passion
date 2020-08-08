@@ -68,6 +68,4 @@ class AppleSignInModule {
         break;
     }
   }
-
-  Future<void> signOutWithApple() async {}
 }

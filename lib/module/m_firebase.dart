@@ -3,9 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:team_passion/module/sign_in/m_apple.dart';
 import 'package:team_passion/module/sign_in/m_google.dart';
+import 'package:team_passion/module/sign_in/m_twitter.dart';
 
 class FirebaseModule extends ChangeNotifier
-    with GoogleSignInModule, AppleSignInModule {
+    with GoogleSignInModule, AppleSignInModule, TwitterSignInModule {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _fireStore = Firestore.instance;
 
@@ -28,8 +29,8 @@ class FirebaseModule extends ChangeNotifier
     _currentUser = await _auth.currentUser();
   }
 
-  Future<void> signOutGoogle() async {
-    await _googleSignInModule.signOutGoogle();
+  Future<void> signOut() async {
+    await _auth.signOut();
   }
 
 // Facebook Sign in
